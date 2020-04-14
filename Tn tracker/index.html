@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.15.0/css/mdb.min.css" rel="stylesheet">
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.15.0/js/mdb.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <style>
+   
+ 
+      h6
+      {
+        font-family: 'Lato', sans-serif;
+      }
+         .loader,
+        .loader:after {
+            border-radius: 50%;
+            width: 10em;
+            height: 10em;
+        }
+        .loader {            
+            margin: 270px auto;
+            font-size: 10px;
+            position: relative;
+            text-indent: -9999em;
+            border-top: 1.1em solid #2bbbad;
+            border-right: 1.1em solid #2bbbad;
+            border-bottom: 1.1em solid #2bbbad;
+            border-left: 1.1em solid #ffffff;
+            -webkit-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-animation: load8 1.1s infinite linear;
+            animation: load8 1.1s infinite linear;
+        }
+        @-webkit-keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        #loadingDiv {
+            position:absolute;;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background-color:white;
+        }
+     img{
+      width: 50px;
+     }
+      .table-responsive
+      {
+        
+    margin: 0 auto;
+    border-radius: 50px;
+    border-bottom: 20px solid #2bbbad !important;
+    background-color: white;
+    box-shadow: 0px 10px 30px 5px #aaaaaa;
+      }
+      .table .thead-dark th
+      {
+        background-color: #2bbbad !important;
+       
+      }
+        .table
+        {
+          transition-delay: 2s;
+            text-align: center;
+        }
+        /* Style the links inside the sidenav */
+
+.Blink {
+  animation: blinker 0.5s cubic-bezier(.5, 0, 1, 1) infinite alternate;  
+}
+@keyframes blinker {  
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+#title , body
+{
+font-family: 'Ubuntu', sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color:white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  box-shadow: 0px 10px 30px 5px #aaaaaa;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: black;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  background-color:#2bbbad;
+  color:white;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media only screen and (max-width: 600px) {
+  .sidenav {padding-top: 50px;}
+  .sidenav a {font-size: 16px;letter-spacing: 4px;}
+  #card
+{
+margin-bottom: 5%;
+    margin-left: 5%;
+   }
+}
+
+      </style>
+<script>
+  $('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
+$(window).on('load', function(){
+  setTimeout(removeLoader, 2000); //wait for page load PLUS two seconds.
+});
+function removeLoader(){
+    $( "#loadingDiv" ).fadeOut(500, function() {
+      // fadeOut complete. Remove the loading div
+      $( "#loadingDiv" ).remove(); //makes page more lightweight 
+  });  
+}
+$(document).ready(function(){
+$.getJSON("https://api.covid19india.org/v2/state_district_wise.json", function(data){
+var output='';
+var state_output = data[7].districtData;
+$.each(state_output, function(key,value){
+   var res= value.district.toUpperCase();
+  console.log(res);
+    output+='<tr>';
+    output+='<td>'+'<b>'+res+'</b>'+'</td>'; 
+    output+='<td>'+'<b>'+value.confirmed+'</b>'+'</td>'; 
+    output+='<tr>';
+});
+$('#data_output').append(output);
+
+});
+});
+$(document).ready(function(){
+var $requestUrlExample = "https://api.covid19india.org/v2/state_district_wise.json";
+var $requestUrlTwo = "https://api.covid19india.org/data.json";
+$.when($.getJSON($requestUrlExample),$.getJSON($requestUrlTwo)).then(function (data,data2) {
+  var output='';
+  var tamilnaduConf=data2[0].statewise[3].active;
+  var tamilnaduDeath=data2[0].statewise[3].deaths;
+  var tamilnaduRecover=data2[0].statewise[3].recovered;
+  var TimeUpdate=data2[0].statewise[3].lastupdatedtime;
+  $("#conf").append(tamilnaduConf);
+  $("#Deaths").append(tamilnaduDeath);
+  $("#Recover").append(tamilnaduRecover);
+  $("#Update").append(TimeUpdate);
+var state_output = data[7].districtData;
+$.each(state_output, function(key,value){
+   var res= value.district.toUpperCase();
+    output+='<tr>';
+    output+='<td>'+'<b>'+res+'</b>'+'</td>'; 
+    output+='<td>'+'<b>'+value.confirmed+'</b>'+'</td>'; 
+    output+='<tr>';
+});
+$('#data_output').append(output);
+
+});
+});
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+  document.body.style.backgroundColor = "white";
+}
+</script>
+<body>
+  
+  <nav class="navbar navbar-dark default-color justify-content-between">
+    <a class="navbar-brand" id="title" href="#"><span><img src="coronavirus.png"/></span> <b>TamilNadu COVID-19 Tracker</b></a>
+    <div class="topnav-right" id="nav-right">
+        <span style="font-size:30px;cursor:pointer;color:white" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></span>
+      </div>
+  </nav>
+              <br>
+    <div class="container">
+        <div class="jumbotron">
+          <div class="col-md-12" style="
+          display: flex;
+      ">
+            <div class="col-md-6">
+              <p><i class="fa fa-circle text-danger Blink"></i>&nbsp;<b> LIVE</b></p>
+            </div>
+            <div class="col-md-6" style="text-align: end;">
+              <p><i class="fa fa-cogs" aria-hidden="true"></i> Last Updated</p>
+              <p id="Update"></p>
+            </div>
+            </div><br>
+            
+            
+            <div class="row w-100">
+                    <div class="col-md-4" id="card">
+                        <div class="card border-info mx-sm-1 p-3">
+                            <div class="card border-info shadow text-info p-3 my-card" ><span class="fa fa-arrow-up" aria-hidden="true"></span></div>
+                            <div class="text-info text-center mt-3"><h4><b>No of Confirmed Cases</b></h4></div>
+                            <div class="text-info text-center mt-2"><h1 id="conf"></h1></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="card">
+                        <div class="card border-success mx-sm-1 p-3">
+                            <div class="card border-success shadow text-success p-3 my-card"><span class="fa fa-heart" aria-hidden="true"></span></div>
+                            <div class="text-success text-center mt-3"><h4><b></b>No of Recovered Cases</b></h4></div>
+                            <div class="text-success text-center mt-2"><h1 id="Recover"></h1></div>
+                    
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="card">
+                        <div class="card border-danger mx-sm-1 p-3">
+                            <div class="card border-danger shadow text-danger p-3 my-card" ><span class="fa fa-arrow-down" aria-hidden="true"></span></div>
+                            <div class="text-danger text-center mt-3"><h4><b></b>No of Deaths</b></h4></div>
+                            <div class="text-danger text-center mt-2"><h1 id="Deaths"></h1></div>
+                        </div>
+                    </div>
+                  
+                 </div>
+            </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+  
+    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+  
+  
+      <div class="modal-content">
+        <div class="modal-header" style="text-align: center;">
+          <h6 class="modal-title" id="exampleModalLongTitle">CORONA VIRUS</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="text-align: justify;">Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus.<br>
+
+              Most people infected with the COVID-19 virus will experience mild to moderate respiratory illness and recover without requiring special treatment.  Older people, and those with underlying medical problems like cardiovascular disease, diabetes, chronic respiratory disease, and cancer are more likely to develop serious illness.<br>
+              
+              The best way to prevent and slow down transmission is be well informed about the COVID-19 virus, the disease it causes and how it spreads. Protect yourself and others from infection by washing your hands or using an alcohol based rub frequently and not touching your face. <br>
+              
+              The COVID-19 virus spreads primarily through droplets of saliva or discharge from the nose when an infected person coughs or sneezes, so it’s important that you also practice respiratory etiquette (for example, by coughing into a flexed elbow).<br>
+              
+              At this time, there are no specific vaccines or treatments for COVID-19. However, there are many ongoing clinical trials evaluating potential treatments. WHO will continue to provide updated information as soon as clinical findings become available.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header" style="text-align: center;">
+        <h4 class="modal-title w-100" id="myModalLabel">Useful Links</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="Links">
+              <div class="link fadeInUp" style="animation-delay: 0.2s;">
+                 <h6>HELPLINE NUMBERS [by State]</h6>
+                 <a href="https://www.mohfw.gov.in/pdf/coronvavirushelplinenumber.pdf" target="_blank" rel="noopener noreferrer">https://www.mohfw.gov.in/pdf/coronvavirushelplinenumber.pdf</a>
+              </div><br>
+              <div class="link fadeInUp" style="animation-delay: 0.3s;">
+                 <h6>Ministry of Health and Family Welfare, Gov. of India</h6>
+                 <a href="https://www.mohfw.gov.in/" target="_blank" rel="noopener noreferrer">https://www.mohfw.gov.in/</a>
+              </div><br>
+              <div class="link fadeInUp" style="animation-delay: 0.4s;">
+                 <h6>WHO : COVID-19 Home Page</h6>
+                 <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank" rel="noopener noreferrer">https://www.who.int/emergencies/diseases/novel-coronavirus-2019</a>
+              </div><br>
+              <div class="link fadeInUp" style="animation-delay: 0.5s;">
+                 <h6>CDC</h6>
+                 <a href="https://www.cdc.gov/coronavirus/2019-ncov/faq.html" target="_blank" rel="noopener noreferrer">https://www.cdc.gov/coronavirus/2019-ncov/faq.html</a>
+              </div><br>
+              <div class="link fadeInUp" style="animation-delay: 0.6s;">
+                 <h6>Crowdsourced list of Resources &amp; Essentials from across India</h6>
+                 <a href="https://bit.ly/covid19resourcelist" target="_blank" rel="noopener noreferrer">https://bit.ly/covid19resourcelist</a>
+              </div><br>
+              <div class="link fadeInUp" style="animation-delay: 0.7s;">
+                 <h6>COVID-19 Global Tracker</h6>
+                 <a href="https://coronavirus.thebaselab.com/" target="_blank" rel="noopener noreferrer">https://coronavirus.thebaselab.com/</a>
+              </div>
+           </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <div class="table-responsive">
+    <table class="table" id="data_output" >
+            <thead class="thead-dark">
+          <tr>
+            <th style="text-align: center;">DISTRICTS</th>
+            <th style="text-align: center;">CONFIRMED CASES</th>
+          </tr>
+        </thead>
+    </table>
+    </div>
+</div><br><br>
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span>&times;</span></a>
+    <a href="#" id="about" data-toggle="modal" data-target="#fullHeightModalRight" target="blank">Useful Links</a>
+    <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public" id="blog" target="blank">WHO Practices</a>
+    <a href="https://nhmtn.maps.arcgis.com/apps/opsdashboard/index.html#/095ad0a1c0254b058fa36b32d1ab1977" id="projects" target="blank">DeepDive</a>
+    <a href="#" id="contact" class="button-responsive" data-toggle="modal" data-target="#exampleModalCenter" target="blank">About COVID</a>
+  </div>
+<!-- Footer -->
+<!-- Footer -->
+<footer class="page-footer font-small cyan darken-3">
+
+    <!-- Footer Elements -->
+    <div class="container">
+  
+      <!-- Grid row-->
+      <div class="row">
+  
+        <!-- Grid column -->
+        <div class="col-md-12 py-5">
+          <div class="mb-5 flex-center">
+  
+            <!-- Facebook -->
+            <a class="fb-ic">
+              <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+            </a>
+            <!-- Twitter -->
+            
+            <!-- Google +-->
+            
+            <!--Linkedin -->
+            
+            <!--Instagram-->
+            <a class="ins-ic">
+              <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+            </a>
+            <!--Pinterest-->
+           
+          </div>
+        </div>
+        <!-- Grid column -->
+  
+      </div>
+      <!-- Grid row-->
+  
+    </div>
+    <!-- Footer Elements -->
+  
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="https://mdbootstrap.com/">afrose58313@gmail.com</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
+</body>
