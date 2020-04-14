@@ -2,10 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>COVID-19 Tracker</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="icon" 
+  type="image/png" 
+  href="coronavirus.png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -86,9 +89,7 @@
             height:100%;
             background-color:white;
         }
-     img{
-      width: 50px;
-     }
+     
       .table-responsive
       {
         
@@ -162,15 +163,35 @@ font-family: 'Ubuntu', sans-serif;
   transition: margin-left .5s;
   padding: 16px;
 }
+.articles {
+	display: flex;
+	flex-wrap: wrap;
+	
+}
 
+.news {
+  width: 305px;
+    margin: 5px;
+    padding: 4px;
+    border: 5px solid #2bbbad;
+}
+
+img {
+	width: 280px;
+}
 @media only screen and (max-width: 600px) {
   .sidenav {padding-top: 50px;}
   .sidenav a {font-size: 16px;letter-spacing: 4px;}
+
   #card
 {
 margin-bottom: 5%;
     margin-left: 5%;
    }
+   .articles {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 33px;
 }
 
       </style>
@@ -185,6 +206,19 @@ function removeLoader(){
       $( "#loadingDiv" ).remove(); //makes page more lightweight 
   });  
 }
+$(function () {
+        $(".news-ticker-images").bootstrapNews({
+            newsPerPage: 4,
+            autoplay: true,
+			pauseOnHover:true,
+            direction: 'up',
+            newsTickerInterval: 2000,
+            onToDo: function () {
+            }
+        });
+
+        
+    });
 $(document).ready(function(){
 $.getJSON("https://api.covid19india.org/v2/state_district_wise.json", function(data){
 var output='';
@@ -210,22 +244,38 @@ $.when($.getJSON($requestUrlExample),$.getJSON($requestUrlTwo)).then(function (d
   var tamilnaduDeath=data2[0].statewise[3].deaths;
   var tamilnaduRecover=data2[0].statewise[3].recovered;
   var TimeUpdate=data2[0].statewise[3].lastupdatedtime;
+  
   $("#conf").append(tamilnaduConf);
   $("#Deaths").append(tamilnaduDeath);
   $("#Recover").append(tamilnaduRecover);
   $("#Update").append(TimeUpdate);
 var state_output = data[7].districtData;
-$.each(state_output, function(key,value){
-   var res= value.district.toUpperCase();
-    output+='<tr>';
-    output+='<td>'+'<b>'+res+'</b>'+'</td>'; 
-    output+='<td>'+'<b>'+value.confirmed+'</b>'+'</td>'; 
-    output+='<tr>';
 });
-$('#data_output').append(output);
+});
+const key = "e6ef2cde327f46e3820d0344025b79fc"
+const url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=b3e5caf34d774925a3d420106bc55b78`
 
-});
-});
+const recievedNews = (newsdata) => {
+    const articlesDiv = document.querySelector(".articles")
+    newsdata.articles.forEach((article) => {
+			
+			//Here we create and add html elements to our html file
+      const div = document.createElement("div")
+      div.className = "news"
+      div.innerHTML = `
+			<h6>${article.title}</h6>
+			<img src="${article.urlToImage}"/>`
+      articlesDiv.appendChild(div)
+			
+    })
+}
+
+//Fetch sends a request to the API.
+//Promise makes it possible to run this in the background. När vi får APIet då går den vidare och skickar tillbaka JSON.
+fetch(url)
+  .then(response => response.json())
+  .then(recievedNews)
+
 function openNav() {
   document.getElementById("mySidenav").style.width = "250px";
   document.getElementById("main").style.marginLeft = "250px";
@@ -237,11 +287,12 @@ function closeNav() {
   document.getElementById("main").style.marginLeft= "0";
   document.body.style.backgroundColor = "white";
 }
+
 </script>
 <body>
   
   <nav class="navbar navbar-dark default-color justify-content-between">
-    <a class="navbar-brand" id="title" href="#"><span><img src="coronavirus.png"/></span> <b>TamilNadu COVID-19 Tracker</b></a>
+    <a class="navbar-brand" id="title" href="#"><span><img src="coronavirus.png" style="width:50px;"/></span> <b>TamilNadu COVID-19 Tracker</b></a>
     <div class="topnav-right" id="nav-right">
         <span style="font-size:30px;cursor:pointer;color:white" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></span>
       </div>
@@ -383,15 +434,22 @@ function closeNav() {
     </table>
     </div>
 </div><br><br>
+<h4>Top Headlines</h4>
+
+<div class="articles">
+ 
+</div>
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span>&times;</span></a>
     <a href="#" id="about" data-toggle="modal" data-target="#fullHeightModalRight" target="blank">Useful Links</a>
     <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public" id="blog" target="blank">WHO Practices</a>
     <a href="https://nhmtn.maps.arcgis.com/apps/opsdashboard/index.html#/095ad0a1c0254b058fa36b32d1ab1977" id="projects" target="blank">DeepDive</a>
     <a href="#" id="contact" class="button-responsive" data-toggle="modal" data-target="#exampleModalCenter" target="blank">About COVID</a>
+    <a href="https://stopcorona.tn.gov.in/whom-to-contact/" target="blank" >HelpLine</a>
   </div>
 <!-- Footer -->
 <!-- Footer -->
+
 <footer class="page-footer font-small cyan darken-3">
 
     <!-- Footer Elements -->
